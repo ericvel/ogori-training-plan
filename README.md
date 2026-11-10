@@ -17,7 +17,7 @@ Use Node 24.15+ (Node 24.12 also runs the current build). Install dependencies w
 2. Create ignored `.dev.vars`:
 
    ```dotenv
-   OWNER_EMAIL="your-approved-google-address"
+   OWNER_EMAIL="eric.vel@outlook.com"
    DEV_AUTH="true"
    ```
 
@@ -62,22 +62,24 @@ Use the activity-overview export, with headers `Activity Type`, `Date`, `Title`,
 
 Existing GitHub `main` integration publishes to `ogori-training-plan.pages.dev`. Keep build command `npm run build`, output `dist`, and Node 24.15+. Do not push a release before private access and storage are configured.
 
-1. Refresh Wrangler authentication (`npx wrangler login`). Create a production D1 database and a separate preview database. Replace the placeholder `database_id` and `preview_database_id` in `wrangler.jsonc`; database IDs are configuration, not credentials.
-2. Apply `migrations/0001_state.sql` remotely and seed the production database from `.private/seed.sql`. The one-time seed cannot overwrite an existing state record. Provision the preview schema separately. Keep preview test changes separate from production history.
-3. In Cloudflare Zero Trust, configure Google as the identity provider (personal Google accounts work). Google requires a Google Cloud OAuth client; keep its client secret in Cloudflare's identity-provider configuration. Do not place it in Git or this frontend.
-4. Protect **both production and preview URLs**, using Cloudflare's [production pages.dev instructions](https://developers.cloudflare.com/pages/platform/known-issues/#enable-access-on-your-pagesdev-domain). The ordinary Pages access-policy toggle initially protects previews only. Editing that application's wildcard to the exact production hostname and re-enabling preview protection creates separate production and preview policies. Check both, including historical deployment URLs.
-5. Restrict each Access application to the single approved Google email. Enable only Google and “Apply instant authentication” to skip the identity-provider chooser. Set application/policy session duration to one month; Google can still require reauthentication.
-6. Set Pages Functions environment variables separately for production and previews:
+1. Use the connected Cloudflare account to manage the app's D1, Pages, and Zero Trust resources. `wrangler.jsonc` is the source of truth for the production and preview D1 bindings and Access variables; database IDs and Access audience tags are configuration, not credentials.
+2. Apply `migrations/0001_state.sql` to each database and seed only an intended empty production database from `.private/seed.sql`. The one-time seed cannot overwrite an existing state record. Keep preview test changes separate from production history.
+3. Use Cloudflare account login as the Access identity provider. Restrict it to account members, allow only the exact owner email (`eric.vel@outlook.com`) in the reusable owner policy, and enable direct identity-provider redirect to avoid the provider chooser. No Google OAuth client is needed.
+4. Protect **both production and preview URLs**, using Cloudflare's [production pages.dev instructions](https://developers.cloudflare.com/pages/platform/known-issues/#enable-access-on-your-pagesdev-domain). The production Access application covers `ogori-training-plan.pages.dev`; the preview application covers `*.ogori-training-plan.pages.dev`. Verify both, including historical deployment URLs.
+5. Set the Access app and owner policy session duration to 30 days. The user's Cloudflare account may separately require reauthentication according to its account settings.
+
+   In Pages **Settings → Runtime**, set **Fail open / closed** to **Fail closed** so static assets are not served when Functions hit the free-tier request limit. This runtime switch is managed in the Pages project settings, separately from Wrangler's tracked bindings and variables.
+6. Confirm the production and preview Pages Functions variables match their separate `wrangler.jsonc` entries:
 
    | Variable             | Value                                                  |
    | -------------------- | ------------------------------------------------------ |
-   | `OWNER_EMAIL`        | Exact approved Google email                            |
+   | `OWNER_EMAIL`        | Exact approved owner email (`eric.vel@outlook.com`)     |
    | `ACCESS_TEAM_DOMAIN` | Team hostname, e.g. `your-team.cloudflareaccess.com`   |
    | `ACCESS_AUD`         | Audience tag for that environment's Access application |
 
    API requests require a valid signed Access JWT with the configured issuer/audience and owner email. Missing configuration fails closed. Never configure a production authentication bypass.
 
-7. Verify an unauthenticated browser reaches Google sign-in, an unapproved account cannot enter, and `/api/state` never exposes data without valid authorization. Verify approved-account sync on phone and computer, then release through GitHub `main`.
+7. Verify an unauthenticated browser is redirected to Cloudflare account sign-in, an unapproved account cannot enter, and `/api/state` never exposes data without valid authorization. Verify owner-account sync on phone and computer, then release through GitHub `main`.
 
 The repository contains no imported CSVs, progress files, seed data, or credentials. `.private`, `.wrangler`, `.dev.vars`, and local environment files are ignored. Static assets contain the interface only; personal records are loaded from the authenticated API. API and static responses request no caching; no service worker or offline queue exists.
 

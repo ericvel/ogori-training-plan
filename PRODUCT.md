@@ -8,7 +8,7 @@ web
 
 ## Users
 
-One runner, using phone and computer before and after runs. Private Google sign-in, restricted to the owner's configured email. Online-only; progress syncs across devices.
+One runner, using phone and computer before and after runs. Private Cloudflare Access sign-in, restricted to `eric.vel@outlook.com`, with a one-month Access session. Online-only; progress syncs across devices.
 
 ## Product Purpose
 
@@ -26,8 +26,8 @@ Two core runs and an optional third run per week, with flexible run days and fix
 - Tagged optional runs missing from the original plan appear as extra completed runs in their named week.
 - Kilometres, min/km, Asia/Tokyo; CSV timestamps have no offset.
 - Portable backup of plan, progress, notes, activities, and links.
-- Existing Vue project, Cloudflare Pages, Functions, D1, Google Access; target free tiers. Main-branch updates auto-deploy through existing GitHub integration.
-- No offline queue, multi-user features, email-code login, or in-app coaching.
+- Existing Vue project, Cloudflare Pages, Functions, D1, and Cloudflare account login through Access; target free tiers. Main-branch updates auto-deploy through existing GitHub integration.
+- No offline queue, multi-user features, or in-app coaching.
 
 ## Brand Commitments
 

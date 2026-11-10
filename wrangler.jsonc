@@ -12,4 +12,26 @@
       "migrations_dir": "migrations",
     },
   ],
+  "vars": {
+    "OWNER_EMAIL": "eric.vel@outlook.com",
+    "ACCESS_TEAM_DOMAIN": "ninaoglars.cloudflareaccess.com",
+    "ACCESS_AUD": "e026653d7d9b202d119844b5218ac0dfd3bcb3ea96a55d75fa813185f92f2b29",
+  },
+  "env": {
+    "preview": {
+      "d1_databases": [
+        {
+          "binding": "DB",
+          "database_name": "ogori-training-preview",
+          "database_id": "44de4074-0751-481c-abbf-6c5ef82c57fe",
+          "migrations_dir": "migrations",
+        },
+      ],
+      "vars": {
+        "OWNER_EMAIL": "eric.vel@outlook.com",
+        "ACCESS_TEAM_DOMAIN": "ninaoglars.cloudflareaccess.com",
+        "ACCESS_AUD": "00805f33b04ab9b7269283d1ec3b07214142fd10b8f9834b37e746675b372f34",
+      },
+    },
+  },
 }
