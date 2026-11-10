@@ -8,6 +8,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.private/
+.wrangler/
+.dev.vars
+.env
+.env.*
+!.env.example
+.impeccable/review/
 .DS_Store
 dist
 dist-ssr

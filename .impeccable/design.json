@@ -1,0 +1,641 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-10T09:25:00.625140+00:00",
+  "title": "Design System: Ogori training plan",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "tonalRamp": [
+          "oklch(15% 0.04560 260.06)",
+          "oklch(26% 0.04560 260.06)",
+          "oklch(38% 0.04560 260.06)",
+          "oklch(49% 0.04560 260.06)",
+          "oklch(61% 0.04560 260.06)",
+          "oklch(72% 0.04560 260.06)",
+          "oklch(84% 0.04560 260.06)",
+          "oklch(95% 0.04560 260.06)"
+        ]
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Muted",
+        "tonalRamp": [
+          "oklch(15% 0.03304 254.80)",
+          "oklch(26% 0.03304 254.80)",
+          "oklch(38% 0.03304 254.80)",
+          "oklch(49% 0.03304 254.80)",
+          "oklch(61% 0.03304 254.80)",
+          "oklch(72% 0.03304 254.80)",
+          "oklch(84% 0.03304 254.80)",
+          "oklch(95% 0.03304 254.80)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Line",
+        "tonalRamp": [
+          "oklch(15% 0.01091 256.70)",
+          "oklch(26% 0.01091 256.70)",
+          "oklch(38% 0.01091 256.70)",
+          "oklch(49% 0.01091 256.70)",
+          "oklch(61% 0.01091 256.70)",
+          "oklch(72% 0.01091 256.70)",
+          "oklch(84% 0.01091 256.70)",
+          "oklch(95% 0.01091 256.70)"
+        ]
+      },
+      "blue": {
+        "role": "primary",
+        "displayName": "Blue",
+        "tonalRamp": [
+          "oklch(15% 0.16652 262.41)",
+          "oklch(26% 0.16652 262.41)",
+          "oklch(38% 0.16652 262.41)",
+          "oklch(49% 0.16652 262.41)",
+          "oklch(61% 0.16652 262.41)",
+          "oklch(72% 0.16652 262.41)",
+          "oklch(84% 0.16652 262.41)",
+          "oklch(95% 0.16652 262.41)"
+        ]
+      },
+      "blue-light": {
+        "role": "primary",
+        "displayName": "Blue Light",
+        "tonalRamp": [
+          "oklch(15% 0.01444 264.50)",
+          "oklch(26% 0.01444 264.50)",
+          "oklch(38% 0.01444 264.50)",
+          "oklch(49% 0.01444 264.50)",
+          "oklch(61% 0.01444 264.50)",
+          "oklch(72% 0.01444 264.50)",
+          "oklch(84% 0.01444 264.50)",
+          "oklch(95% 0.01444 264.50)"
+        ]
+      },
+      "green": {
+        "role": "secondary",
+        "displayName": "Green",
+        "tonalRamp": [
+          "oklch(15% 0.09309 158.41)",
+          "oklch(26% 0.09309 158.41)",
+          "oklch(38% 0.09309 158.41)",
+          "oklch(49% 0.09309 158.41)",
+          "oklch(61% 0.09309 158.41)",
+          "oklch(72% 0.09309 158.41)",
+          "oklch(84% 0.09309 158.41)",
+          "oklch(95% 0.09309 158.41)"
+        ]
+      },
+      "green-light": {
+        "role": "secondary",
+        "displayName": "Green Light",
+        "tonalRamp": [
+          "oklch(15% 0.01402 155.59)",
+          "oklch(26% 0.01402 155.59)",
+          "oklch(38% 0.01402 155.59)",
+          "oklch(49% 0.01402 155.59)",
+          "oklch(61% 0.01402 155.59)",
+          "oklch(72% 0.01402 155.59)",
+          "oklch(84% 0.01402 155.59)",
+          "oklch(95% 0.01402 155.59)"
+        ]
+      },
+      "canvas": {
+        "role": "neutral",
+        "displayName": "Canvas",
+        "tonalRamp": [
+          "oklch(15% 0.00453 258.32)",
+          "oklch(26% 0.00453 258.32)",
+          "oklch(38% 0.00453 258.32)",
+          "oklch(49% 0.00453 258.32)",
+          "oklch(61% 0.00453 258.32)",
+          "oklch(72% 0.00453 258.32)",
+          "oklch(84% 0.00453 258.32)",
+          "oklch(95% 0.00453 258.32)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Surface",
+        "tonalRamp": [
+          "oklch(15% 0.00000 89.88)",
+          "oklch(26% 0.00000 89.88)",
+          "oklch(38% 0.00000 89.88)",
+          "oklch(49% 0.00000 89.88)",
+          "oklch(61% 0.00000 89.88)",
+          "oklch(72% 0.00000 89.88)",
+          "oklch(84% 0.00000 89.88)",
+          "oklch(95% 0.00000 89.88)"
+        ]
+      },
+      "field-border": {
+        "role": "neutral",
+        "displayName": "Field Border",
+        "tonalRamp": [
+          "oklch(15% 0.01875 258.36)",
+          "oklch(26% 0.01875 258.36)",
+          "oklch(38% 0.01875 258.36)",
+          "oklch(49% 0.01875 258.36)",
+          "oklch(61% 0.01875 258.36)",
+          "oklch(72% 0.01875 258.36)",
+          "oklch(84% 0.01875 258.36)",
+          "oklch(95% 0.01875 258.36)"
+        ]
+      },
+      "field-hover-border": {
+        "role": "neutral",
+        "displayName": "Field Hover Border",
+        "tonalRamp": [
+          "oklch(15% 0.03851 257.41)",
+          "oklch(26% 0.03851 257.41)",
+          "oklch(38% 0.03851 257.41)",
+          "oklch(49% 0.03851 257.41)",
+          "oklch(61% 0.03851 257.41)",
+          "oklch(72% 0.03851 257.41)",
+          "oklch(84% 0.03851 257.41)",
+          "oklch(95% 0.03851 257.41)"
+        ]
+      },
+      "field-disabled": {
+        "role": "neutral",
+        "displayName": "Field Disabled",
+        "tonalRamp": [
+          "oklch(15% 0.00454 258.32)",
+          "oklch(26% 0.00454 258.32)",
+          "oklch(38% 0.00454 258.32)",
+          "oklch(49% 0.00454 258.32)",
+          "oklch(61% 0.00454 258.32)",
+          "oklch(72% 0.00454 258.32)",
+          "oklch(84% 0.00454 258.32)",
+          "oklch(95% 0.00454 258.32)"
+        ]
+      },
+      "focus": {
+        "role": "neutral",
+        "displayName": "Focus",
+        "tonalRamp": [
+          "oklch(15% 0.11217 263.53)",
+          "oklch(26% 0.11217 263.53)",
+          "oklch(38% 0.11217 263.53)",
+          "oklch(49% 0.11217 263.53)",
+          "oklch(61% 0.11217 263.53)",
+          "oklch(72% 0.11217 263.53)",
+          "oklch(84% 0.11217 263.53)",
+          "oklch(95% 0.11217 263.53)"
+        ]
+      },
+      "button-border": {
+        "role": "neutral",
+        "displayName": "Button Border",
+        "tonalRamp": [
+          "oklch(15% 0.02170 259.19)",
+          "oklch(26% 0.02170 259.19)",
+          "oklch(38% 0.02170 259.19)",
+          "oklch(49% 0.02170 259.19)",
+          "oklch(61% 0.02170 259.19)",
+          "oklch(72% 0.02170 259.19)",
+          "oklch(84% 0.02170 259.19)",
+          "oklch(95% 0.02170 259.19)"
+        ]
+      },
+      "button-hover": {
+        "role": "neutral",
+        "displayName": "Button Hover",
+        "tonalRamp": [
+          "oklch(15% 0.00910 258.34)",
+          "oklch(26% 0.00910 258.34)",
+          "oklch(38% 0.00910 258.34)",
+          "oklch(49% 0.00910 258.34)",
+          "oklch(61% 0.00910 258.34)",
+          "oklch(72% 0.00910 258.34)",
+          "oklch(84% 0.00910 258.34)",
+          "oklch(95% 0.00910 258.34)"
+        ]
+      },
+      "button-hover-border": {
+        "role": "neutral",
+        "displayName": "Button Hover Border",
+        "tonalRamp": [
+          "oklch(15% 0.03666 256.37)",
+          "oklch(26% 0.03666 256.37)",
+          "oklch(38% 0.03666 256.37)",
+          "oklch(49% 0.03666 256.37)",
+          "oklch(61% 0.03666 256.37)",
+          "oklch(72% 0.03666 256.37)",
+          "oklch(84% 0.03666 256.37)",
+          "oklch(95% 0.03666 256.37)"
+        ]
+      },
+      "blue-hover": {
+        "role": "primary",
+        "displayName": "Blue Hover",
+        "tonalRamp": [
+          "oklch(15% 0.14486 262.20)",
+          "oklch(26% 0.14486 262.20)",
+          "oklch(38% 0.14486 262.20)",
+          "oklch(49% 0.14486 262.20)",
+          "oklch(61% 0.14486 262.20)",
+          "oklch(72% 0.14486 262.20)",
+          "oklch(84% 0.14486 262.20)",
+          "oklch(95% 0.14486 262.20)"
+        ]
+      },
+      "danger": {
+        "role": "secondary",
+        "displayName": "Danger",
+        "tonalRamp": [
+          "oklch(15% 0.14597 30.52)",
+          "oklch(26% 0.14597 30.52)",
+          "oklch(38% 0.14597 30.52)",
+          "oklch(49% 0.14597 30.52)",
+          "oklch(61% 0.14597 30.52)",
+          "oklch(72% 0.14597 30.52)",
+          "oklch(84% 0.14597 30.52)",
+          "oklch(95% 0.14597 30.52)"
+        ]
+      },
+      "note-surface": {
+        "role": "neutral",
+        "displayName": "Note Surface",
+        "tonalRamp": [
+          "oklch(15% 0.00286 264.54)",
+          "oklch(26% 0.00286 264.54)",
+          "oklch(38% 0.00286 264.54)",
+          "oklch(49% 0.00286 264.54)",
+          "oklch(61% 0.00286 264.54)",
+          "oklch(72% 0.00286 264.54)",
+          "oklch(84% 0.00286 264.54)",
+          "oklch(95% 0.00286 264.54)"
+        ]
+      },
+      "note-border": {
+        "role": "neutral",
+        "displayName": "Note Border",
+        "tonalRamp": [
+          "oklch(15% 0.01210 259.82)",
+          "oklch(26% 0.01210 259.82)",
+          "oklch(38% 0.01210 259.82)",
+          "oklch(49% 0.01210 259.82)",
+          "oklch(61% 0.01210 259.82)",
+          "oklch(72% 0.01210 259.82)",
+          "oklch(84% 0.01210 259.82)",
+          "oklch(95% 0.01210 259.82)"
+        ]
+      },
+      "skipped": {
+        "role": "secondary",
+        "displayName": "Skipped",
+        "tonalRamp": [
+          "oklch(15% 0.06394 71.44)",
+          "oklch(26% 0.06394 71.44)",
+          "oklch(38% 0.06394 71.44)",
+          "oklch(49% 0.06394 71.44)",
+          "oklch(61% 0.06394 71.44)",
+          "oklch(72% 0.06394 71.44)",
+          "oklch(84% 0.06394 71.44)",
+          "oklch(95% 0.06394 71.44)"
+        ]
+      },
+      "unsaved": {
+        "role": "secondary",
+        "displayName": "Unsaved",
+        "tonalRamp": [
+          "oklch(15% 0.09698 75.94)",
+          "oklch(26% 0.09698 75.94)",
+          "oklch(38% 0.09698 75.94)",
+          "oklch(49% 0.09698 75.94)",
+          "oklch(61% 0.09698 75.94)",
+          "oklch(72% 0.09698 75.94)",
+          "oklch(84% 0.09698 75.94)",
+          "oklch(95% 0.09698 75.94)"
+        ]
+      },
+      "badge-text": {
+        "role": "secondary",
+        "displayName": "Badge Text",
+        "tonalRamp": [
+          "oklch(15% 0.04806 148.88)",
+          "oklch(26% 0.04806 148.88)",
+          "oklch(38% 0.04806 148.88)",
+          "oklch(49% 0.04806 148.88)",
+          "oklch(61% 0.04806 148.88)",
+          "oklch(72% 0.04806 148.88)",
+          "oklch(84% 0.04806 148.88)",
+          "oklch(95% 0.04806 148.88)"
+        ]
+      },
+      "badge-surface": {
+        "role": "secondary",
+        "displayName": "Badge Surface",
+        "tonalRamp": [
+          "oklch(15% 0.01294 141.81)",
+          "oklch(26% 0.01294 141.81)",
+          "oklch(38% 0.01294 141.81)",
+          "oklch(49% 0.01294 141.81)",
+          "oklch(61% 0.01294 141.81)",
+          "oklch(72% 0.01294 141.81)",
+          "oklch(84% 0.01294 141.81)",
+          "oklch(95% 0.01294 141.81)"
+        ]
+      },
+      "error-text": {
+        "role": "secondary",
+        "displayName": "Error Text",
+        "tonalRamp": [
+          "oklch(15% 0.10230 30.55)",
+          "oklch(26% 0.10230 30.55)",
+          "oklch(38% 0.10230 30.55)",
+          "oklch(49% 0.10230 30.55)",
+          "oklch(61% 0.10230 30.55)",
+          "oklch(72% 0.10230 30.55)",
+          "oklch(84% 0.10230 30.55)",
+          "oklch(95% 0.10230 30.55)"
+        ]
+      },
+      "error-border": {
+        "role": "secondary",
+        "displayName": "Error Border",
+        "tonalRamp": [
+          "oklch(15% 0.04273 32.62)",
+          "oklch(26% 0.04273 32.62)",
+          "oklch(38% 0.04273 32.62)",
+          "oklch(49% 0.04273 32.62)",
+          "oklch(61% 0.04273 32.62)",
+          "oklch(72% 0.04273 32.62)",
+          "oklch(84% 0.04273 32.62)",
+          "oklch(95% 0.04273 32.62)"
+        ]
+      },
+      "error-surface": {
+        "role": "secondary",
+        "displayName": "Error Surface",
+        "tonalRamp": [
+          "oklch(15% 0.01405 39.42)",
+          "oklch(26% 0.01405 39.42)",
+          "oklch(38% 0.01405 39.42)",
+          "oklch(49% 0.01405 39.42)",
+          "oklch(61% 0.01405 39.42)",
+          "oklch(72% 0.01405 39.42)",
+          "oklch(84% 0.01405 39.42)",
+          "oklch(95% 0.01405 39.42)"
+        ]
+      },
+      "success-text": {
+        "role": "secondary",
+        "displayName": "Success Text",
+        "tonalRamp": [
+          "oklch(15% 0.07326 157.66)",
+          "oklch(26% 0.07326 157.66)",
+          "oklch(38% 0.07326 157.66)",
+          "oklch(49% 0.07326 157.66)",
+          "oklch(61% 0.07326 157.66)",
+          "oklch(72% 0.07326 157.66)",
+          "oklch(84% 0.07326 157.66)",
+          "oklch(95% 0.07326 157.66)"
+        ]
+      },
+      "success-border": {
+        "role": "secondary",
+        "displayName": "Success Border",
+        "tonalRamp": [
+          "oklch(15% 0.03858 157.32)",
+          "oklch(26% 0.03858 157.32)",
+          "oklch(38% 0.03858 157.32)",
+          "oklch(49% 0.03858 157.32)",
+          "oklch(61% 0.03858 157.32)",
+          "oklch(72% 0.03858 157.32)",
+          "oklch(84% 0.03858 157.32)",
+          "oklch(95% 0.03858 157.32)"
+        ]
+      },
+      "success-surface": {
+        "role": "secondary",
+        "displayName": "Success Surface",
+        "tonalRamp": [
+          "oklch(15% 0.01236 157.00)",
+          "oklch(26% 0.01236 157.00)",
+          "oklch(38% 0.01236 157.00)",
+          "oklch(49% 0.01236 157.00)",
+          "oklch(61% 0.01236 157.00)",
+          "oklch(72% 0.01236 157.00)",
+          "oklch(84% 0.01236 157.00)",
+          "oklch(95% 0.01236 157.00)"
+        ]
+      },
+      "chart-muted": {
+        "role": "neutral",
+        "displayName": "Chart Muted",
+        "tonalRamp": [
+          "oklch(15% 0.03020 262.53)",
+          "oklch(26% 0.03020 262.53)",
+          "oklch(38% 0.03020 262.53)",
+          "oklch(49% 0.03020 262.53)",
+          "oklch(61% 0.03020 262.53)",
+          "oklch(72% 0.03020 262.53)",
+          "oklch(84% 0.03020 262.53)",
+          "oklch(95% 0.03020 262.53)"
+        ]
+      },
+      "progress-track": {
+        "role": "neutral",
+        "displayName": "Progress Track",
+        "tonalRamp": [
+          "oklch(15% 0.00744 260.73)",
+          "oklch(26% 0.00744 260.73)",
+          "oklch(38% 0.00744 260.73)",
+          "oklch(49% 0.00744 260.73)",
+          "oklch(61% 0.00744 260.73)",
+          "oklch(72% 0.00744 260.73)",
+          "oklch(84% 0.00744 260.73)",
+          "oklch(95% 0.00744 260.73)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Page titles."
+      },
+      "section": {
+        "displayName": "Section",
+        "purpose": "Section headings."
+      },
+      "session-title": {
+        "displayName": "Session Title",
+        "purpose": "Workout titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Base text and reading line-height."
+      },
+      "button": {
+        "displayName": "Button",
+        "purpose": "Shared compact button labels."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Run labels."
+      },
+      "measurement": {
+        "displayName": "Measurement",
+        "purpose": "Weekly distance total with tabular numerals."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "control-color",
+        "value": "background-color 160ms ease, border-color 160ms ease",
+        "purpose": "Shared button hover feedback."
+      },
+      {
+        "name": "disclosure-chevron",
+        "value": "transform 180ms ease",
+        "purpose": "Rotate workout disclosure chevrons through 180 degrees."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "none",
+        "purpose": "prefers-reduced-motion: reduce removes transitions and uses scroll-behavior: auto."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "narrow-phone-max",
+        "value": "380px"
+      },
+      {
+        "name": "mobile-max",
+        "value": "760px"
+      },
+      {
+        "name": "stacked-work-area-max",
+        "value": "1000px"
+      },
+      {
+        "name": "compact-desktop-max",
+        "value": "1180px"
+      },
+      {
+        "name": "wide-desktop-min",
+        "value": "1700px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Cobalt action with color-only hover feedback.",
+      "html": "<button class=\"ds-button ds-primary\">Import Garmin CSV</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;border:1px solid #cbd4e2;background:#fff;color:var(--ink,#243249);border-radius:8px;padding:10px 15px;font:550 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 160ms,border-color 160ms}.ds-button:hover:not(:disabled){background:#f0f4fa;border-color:#9aaac0}.ds-button:disabled{cursor:not-allowed;opacity:.5}.ds-button:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-primary{background:var(--blue,#2859bd);border-color:var(--blue,#2859bd);color:#fff}.ds-primary:hover:not(:disabled){background:#204a9e;border-color:#204a9e}"
+    },
+    {
+      "name": "Secondary button",
+      "kind": "button",
+      "refersTo": "button-secondary",
+      "description": "White bordered secondary action.",
+      "html": "<button class=\"ds-button\">Choose backup</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;border:1px solid #cbd4e2;background:#fff;color:var(--ink,#243249);border-radius:8px;padding:10px 15px;font:550 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 160ms,border-color 160ms}.ds-button:hover:not(:disabled){background:#f0f4fa;border-color:#9aaac0}.ds-button:disabled{cursor:not-allowed;opacity:.5}.ds-button:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}"
+    },
+    {
+      "name": "Danger button",
+      "kind": "button",
+      "refersTo": "button-danger",
+      "description": "Brick confirmation action used after restore review.",
+      "html": "<button class=\"ds-button ds-danger\">Replace with backup</button>",
+      "css": ".ds-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:44px;border:1px solid #cbd4e2;background:#fff;color:var(--ink,#243249);border-radius:8px;padding:10px 15px;font:550 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;white-space:nowrap;cursor:pointer;transition:background-color 160ms,border-color 160ms}.ds-button:hover:not(:disabled){background:#f0f4fa;border-color:#9aaac0}.ds-button:disabled{cursor:not-allowed;opacity:.5}.ds-button:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}.ds-danger{background:#ac3f30;color:#fff;border-color:#ac3f30}"
+    },
+    {
+      "name": "Text button",
+      "kind": "button",
+      "refersTo": "button-text",
+      "description": "Compact text action with a full-height target.",
+      "html": "<button class=\"ds-text\">View full training plan</button>",
+      "css": ".ds-text{display:inline-flex;align-items:center;gap:5px;font:550 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;padding:9px 2px;min-height:44px;color:var(--blue,#2859bd);border:0;background:transparent;cursor:pointer}.ds-text:hover{text-decoration:underline;text-underline-offset:3px}.ds-text:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}.ds-text:disabled{opacity:.5;cursor:not-allowed}"
+    },
+    {
+      "name": "Text field",
+      "kind": "input",
+      "refersTo": "field",
+      "description": "Native text field, with hover, focus, and disabled treatment.",
+      "html": "<label class=\"ds-field-label\" for=\"ds-search\">Search activities</label><input class=\"ds-field\" id=\"ds-search\" type=\"search\" placeholder=\"Search runs or dates\">",
+      "css": ".ds-field-label{display:block;margin-bottom:8px;color:var(--muted,#606e80);font:550 12px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif}.ds-field{font:400 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;color:var(--ink,#243249);background:#fff;border:1px solid #cbd3df;border-radius:7px;min-height:44px;padding:9px 11px;caret-color:var(--blue,#2859bd)}.ds-field:hover{border-color:#8d9db4}.ds-field:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}.ds-field:disabled{background:#f3f5f8;opacity:.7}.ds-field::placeholder{color:#6b778a}"
+    },
+    {
+      "name": "Navigation",
+      "kind": "nav",
+      "refersTo": "navigation-active",
+      "description": "Desktop active and inactive icon/label rows.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Example navigation\"><button class=\"ds-nav-item ds-selected\" aria-current=\"page\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M8 3v4m8-4v4M4 10h16M5 5h14a1 1 0 0 1 1 1v14H4V6a1 1 0 0 1 1-1Zm3 9h3m-3 3h6\"/></svg><span>This week</span></button><button class=\"ds-nav-item\">Training plan</button></nav>",
+      "css": ".ds-nav{display:grid;gap:6px;max-width:220px}.ds-nav-item{display:flex;align-items:center;gap:13px;min-height:47px;padding:12px 14px;border:0;border-radius:8px;text-align:left;background:transparent;color:#59667a;font:550 14px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;cursor:pointer}.ds-nav-item:hover{background:#f4f6fa}.ds-nav-item.ds-selected{color:var(--blue,#2859bd);background:var(--blue-light,#edf2fc);font-weight:650}.ds-nav-item:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}"
+    },
+    {
+      "name": "Week badge",
+      "kind": "chip",
+      "refersTo": "week-badge",
+      "description": "Quiet informational tag; no interactive states.",
+      "html": "<span class=\"ds-badge\">Recovery week</span>",
+      "css": ".ds-badge{display:inline-block;color:#536e57;background:#eaf1e9;border-radius:5px;padding:5px 8px;font:600 10px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;white-space:nowrap}"
+    },
+    {
+      "name": "Completion toggle",
+      "kind": "button",
+      "refersTo": "completion-checked",
+      "description": "Circular pressed completion control, with a larger transparent hit area.",
+      "html": "<button class=\"ds-completion ds-checked\" aria-pressed=\"true\" aria-label=\"Mark unfinished: Core run A\"><svg width=\"19\" height=\"19\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m5 12 4 4L19 6\"/></svg></button>",
+      "css": ".ds-completion{display:grid;place-items:center;position:relative;width:26px;min-width:26px;height:26px;border:1.5px solid #aab7ca;border-radius:50%;background:transparent;cursor:pointer}.ds-completion::after{content:\"\";position:absolute;inset:-9px}.ds-completion:hover:not(:disabled){border-color:var(--blue,#2859bd);background:var(--blue-light,#edf2fc)}.ds-completion.ds-checked{background:var(--green,#27704c);border-color:var(--green,#27704c);color:#fff}.ds-completion:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}.ds-completion:disabled{opacity:.5;cursor:not-allowed}"
+    },
+    {
+      "name": "Session card",
+      "kind": "card",
+      "refersTo": "session-card",
+      "description": "Inline notes and native workout disclosure in a flat bordered surface.",
+      "html": "<article class=\"ds-card\"><div class=\"ds-run-label\">Core run A</div><h3 class=\"ds-card-title\">6–7 km easy</h3><label class=\"ds-note-label\" for=\"ds-note\">Notes</label><input id=\"ds-note\" class=\"ds-note\" type=\"text\"><details class=\"ds-details\"><summary>Workout details<svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"m6 9 6 6 6-6\"/></svg></summary><div class=\"ds-workout\">Keep this run easy.</div></details></article>",
+      "css": ".ds-card{max-width:550px;background:#fff;color:var(--ink,#243249);border:1px solid var(--line,#e2e7ee);border-radius:12px;padding:23px 23px 0;font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif}.ds-run-label{font-size:12px;font-weight:600;color:#66748a;min-height:26px}.ds-card-title{margin:4px 0 0;font-size:17px;font-weight:600;line-height:1.55;overflow-wrap:anywhere}.ds-note-label{display:block;color:var(--muted,#606e80);font-size:11px;margin:17px 0 6px}.ds-note{width:100%;min-height:39px;border:1px solid #e2e7ef;border-radius:7px;background:#fbfcfe;color:var(--ink,#243249);font:400 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;padding:8px 11px;caret-color:var(--blue,#2859bd)}.ds-note:hover{border-color:#8d9db4}.ds-note:focus{background:#fff}.ds-note:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}.ds-details{margin-top:13px}.ds-details>summary{display:flex;align-items:center;gap:8px;min-height:47px;font-size:11px;color:#536782;list-style:none;cursor:pointer}.ds-details>summary::-webkit-details-marker{display:none}.ds-details>summary:focus-visible{outline:3px solid #86aaf2;outline-offset:3px}.ds-details>summary>svg{margin-left:auto;transition:transform 180ms}.ds-details[open]>summary>svg{transform:rotate(180deg)}.ds-workout{padding:8px 0 22px;border-top:1px solid var(--line,#e2e7ee);font-size:13px;line-height:1.6;color:#4c5d75}@media(max-width:760px){.ds-card{padding:19px 17px 0}.ds-card-title{font-size:16px}.ds-note{font-size:16px;min-height:41px}.ds-note-label,.ds-details>summary{font-size:12px}}@media(prefers-reduced-motion:reduce){.ds-details>summary>svg{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The weekly training log",
+    "overview": "The weekly training log is calm, compact, and light. Cool white surfaces sit on a pale slate canvas, with ink navy text, restrained cobalt controls, and green completion marks. System sans typography and fine dividers make instructions and recorded measurements easy to scan.\n\nControls feel familiar and precise. Density comes from short labels, modest rounded corners, inline notes, and expandable details; important actions retain generous phone targets. The interface uses SVG line icons and no stock imagery or illustrative assets.",
+    "keyCharacteristics": [
+      "Cool white surfaces on a pale slate canvas.",
+      "Restrained cobalt actions and green completion feedback.",
+      "Compact system sans text with tabular measurements.",
+      "Flat bordered containers, inline editing, and thumb-reachable mobile navigation."
+    ],
+    "rules": [
+      {
+        "name": "The Functional Color Rule",
+        "body": "Use cobalt for actions and selection; use green for completion and linked activity evidence. Keep text labels alongside status color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Factual Measurement Rule",
+        "body": "Use tabular numerals for distances, counts, dates in activity rows, and pace values; keep units visually subordinate.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Surface Rule",
+        "body": "Separate surfaces with tone and fine borders. Do not introduce shadows into this flat interface.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do preserve the compact light interface, restrained color, readable instructions, and large phone controls.",
+      "Do keep Core run A/B and Optional labels, inline notes, autosave, and expandable workout details.",
+      "Do preserve visible focus rings, semantic status text, and error recovery actions.",
+      "Do use inline SVG line icons with round caps and joins.",
+      "Do keep measurements aligned and use the existing responsive layout changes."
+    ],
+    "donts": [
+      "Don't replace the pinned system sans interface with a decorative display typeface or imagery.",
+      "Don't add repetitive note placeholders or a separate save-status section.",
+      "Don't encode completed, skipped, unsaved, or error states through color alone.",
+      "Don't add hover lift, card shadows, animated counters, or skeleton shimmer to the current flat, quiet system."
+    ]
+  }
+}

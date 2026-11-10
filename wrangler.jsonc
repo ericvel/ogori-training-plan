@@ -1,0 +1,15 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "ogori-training-plan",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2026-11-10",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ogori-training",
+      "database_id": "64ea3da7-6a95-4ceb-89d6-9537a3187866",
+      "preview_database_id": "44de4074-0751-481c-abbf-6c5ef82c57fe",
+      "migrations_dir": "migrations",
+    },
+  ],
+}
