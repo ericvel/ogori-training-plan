@@ -72,6 +72,8 @@ Use the activity-overview export, with headers `Activity Type`, `Date`, `Title`,
 
 Open a running activity in **Activities → Import lap CSV**. Choose an individual Garmin activity CSV, review its laps and totals beside the selected activity, then save. These files have no internal activity identity; attachment is explicit. English headers and metric exports (km, min/km, bpm) are supported.
 
+On **This week**, tempo, interval/repetition, hill, stride, progression, race-pace, benchmark, and race workouts also expose **Import lap CSV** directly on their cards. With one linked running activity the button opens the file chooser immediately; with multiple linked runs, choose the run first. Without a linked run, **Link a run** opens Activities. Preview and confirmation stay inline, and saved laps can be reviewed from the card.
+
 - Ordinary exports use `Laps`; structured workouts use `Lap`, `Interval`, and `Step Type`. Both require `Time` and `Distance`. Column order is irrelevant. Summary and grouped range rows are excluded from the lap table; group labels are retained on their individual laps.
 - Only lap/workout identifiers, labels, duration, distance, exported average pace, average HR, and maximum HR are retained. Extra columns are discarded. Missing optional pace/HR values display “—”. Fractional seconds are preserved; pace is never recalculated from rounded lap distance.
 - Numbered `Run` intervals appear in a compact work comparison and are emphasized in the complete lap table. Unlabeled runs show ordinary splits, without inferred work labels or automatic grades.

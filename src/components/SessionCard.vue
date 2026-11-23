@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import type { Activity, Progress, Session } from '../../shared/model.ts'
+import type { Command } from '../../shared/commands.ts'
 import { blankProgress, runLabel, tokyoToday } from '../../shared/model.ts'
 import { dateLabel, duration, km, pace } from '../lib/format.ts'
-import { workoutSummary } from '../lib/workout.ts'
+import { benefitsFromLaps, workoutSummary } from '../lib/workout.ts'
 import type { PaceEstimates } from '../lib/paceTargets.ts'
 import AppIcon from './AppIcon.vue'
+import ActivityLaps from './ActivityLaps.vue'
 const props = defineProps<{
   session: Session
   progress?: Progress
@@ -15,15 +17,30 @@ const props = defineProps<{
   draft?: string
   raceGoal?: string
   paceEstimates?: PaceEstimates | null
+  save: (command: Command) => Promise<boolean>
+  lapDisabled: boolean
 }>()
 const emit = defineEmits<{
   patch: [id: string, patch: Partial<Progress>]
   note: [id: string, note: string]
+  'open-activities': []
 }>()
 const current = computed(() => props.progress ?? blankProgress())
 const workout = computed(() => workoutSummary(props.session, props.raceGoal, props.paceEstimates))
 const note = ref(props.draft ?? current.value.note)
 const focused = ref(false)
+const lapActivityId = ref('')
+const lapActivities = computed(() =>
+  props.activities.filter((activity) => activity.type.toLowerCase() === 'running'),
+)
+const lapActivity = computed(() =>
+  lapActivities.value.length === 1
+    ? lapActivities.value[0]
+    : lapActivities.value.find((activity) => activity.id === lapActivityId.value),
+)
+watch(lapActivities, (activities) => {
+  if (!activities.some((activity) => activity.id === lapActivityId.value)) lapActivityId.value = ''
+})
 watch(
   () => props.progress?.note,
   (value) => {
@@ -110,6 +127,53 @@ function complete() {
         @blur="focused = false"
         @input="emit('note', session.id, note)"
       />
+      <div v-if="benefitsFromLaps(session)" class="session-lap-import">
+        <template v-if="!lapActivities.length">
+          <div class="session-lap-actions">
+            <button class="button" disabled>
+              <AppIcon name="upload" :size="16" />Import lap CSV
+            </button>
+            <button class="text-button" :disabled="busy" @click="emit('open-activities')">
+              Link a run
+            </button>
+          </div>
+          <p class="small muted">Import and link your Garmin run first to attach its laps.</p>
+        </template>
+        <template v-else>
+          <label
+            v-if="lapActivities.length > 1"
+            class="session-lap-choice"
+            :for="`lap-run-${session.id}`"
+          >
+            Run for lap import
+            <select :id="`lap-run-${session.id}`" v-model="lapActivityId" :disabled="lapDisabled">
+              <option value="">Choose a linked run</option>
+              <option v-for="activity in lapActivities" :key="activity.id" :value="activity.id">
+                {{
+                  dateLabel(activity.startedAt, {
+                    day: 'numeric',
+                    month: 'short',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                }}
+                · {{ activity.title || activity.type }} · {{ km(activity.distanceKm) }} km
+              </option>
+            </select>
+          </label>
+          <ActivityLaps
+            v-if="lapActivity"
+            :key="lapActivity.id"
+            :activity="lapActivity"
+            :disabled="lapDisabled"
+            :save="save"
+            compact
+          />
+          <button v-else class="button" disabled>
+            <AppIcon name="upload" :size="16" />Import lap CSV
+          </button>
+        </template>
+      </div>
       <details class="workout-details">
         <summary>
           Workout details
@@ -158,3 +222,32 @@ function complete() {
     </div>
   </article>
 </template>
+
+<style scoped>
+.session-card {
+  min-width: 0;
+}
+.session-lap-import {
+  min-width: 0;
+  margin-top: 16px;
+}
+.session-lap-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.session-lap-import > p {
+  margin-top: 8px;
+}
+.session-lap-choice {
+  display: grid;
+  gap: 8px;
+  font-size: 12px;
+  margin-bottom: 12px;
+}
+.session-lap-choice select {
+  width: 100%;
+  min-width: 0;
+}
+</style>

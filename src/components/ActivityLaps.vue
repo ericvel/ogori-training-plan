@@ -11,6 +11,7 @@ const props = defineProps<{
   activity: Activity
   disabled: boolean
   save: (command: Command) => Promise<boolean>
+  compact?: boolean
 }>()
 const input = ref<HTMLInputElement | null>(null)
 const preview = ref<{ csv: string; name: string; data: LapData } | null>(null)
@@ -20,6 +21,7 @@ const error = ref(''),
   saving = ref(false)
 const acceptMismatch = ref(false),
   removing = ref(false)
+const reviewing = ref(false)
 const blocked = computed(() => props.disabled || reading.value || saving.value)
 const mismatch = computed(() => !!preview.value && lapMismatch(props.activity, preview.value.data))
 const identical = computed(
@@ -30,6 +32,10 @@ const work = computed(() => displayed.value?.laps.filter(isWorkLap) ?? [])
 watch([() => props.activity.distanceKm, () => props.activity.durationSeconds], () => {
   acceptMismatch.value = false
 })
+function toggleReview() {
+  reviewing.value = !reviewing.value
+  removing.value = false
+}
 
 async function choose(event: Event) {
   const element = event.target as HTMLInputElement,
@@ -98,9 +104,9 @@ async function remove() {
 </script>
 
 <template>
-  <section class="activity-laps" aria-label="Activity laps">
+  <section class="activity-laps" :class="{ compact }" aria-label="Activity laps">
     <div class="lap-heading">
-      <h3>
+      <h3 v-if="!compact">
         Laps<span v-if="activity.lapData" class="muted small">
           · {{ activity.lapData.laps.length }}</span
         >
@@ -110,7 +116,16 @@ async function remove() {
           <AppIcon name="upload" :size="16" />{{ reading ? 'Reading…' : 'Import lap CSV' }}
         </button>
         <button
-          v-if="activity.lapData && !preview"
+          v-if="compact && activity.lapData && !preview"
+          class="text-button"
+          :disabled="blocked"
+          :aria-expanded="reviewing"
+          @click="toggleReview"
+        >
+          {{ reviewing ? 'Hide laps' : `Review ${activity.lapData.laps.length} laps` }}
+        </button>
+        <button
+          v-if="activity.lapData && !preview && (!compact || reviewing)"
           class="text-button"
           :disabled="blocked"
           @click="removing = !removing"
@@ -194,7 +209,7 @@ async function remove() {
         </div>
       </template>
     </div>
-    <template v-if="displayed">
+    <template v-if="displayed && (!compact || preview || reviewing)">
       <LapTable v-if="work.length" :laps="work" caption="Work intervals" />
       <LapTable
         :laps="displayed.laps"
@@ -209,7 +224,7 @@ async function remove() {
         }}
       </p>
     </template>
-    <p v-else class="small muted">
+    <p v-else-if="!displayed && !compact" class="small muted">
       Import an individual Garmin activity CSV to review lap splits and workout intervals.
     </p>
     <div v-if="preview" class="lap-actions lap-save">
@@ -238,6 +253,14 @@ async function remove() {
   margin-top: 24px;
   padding-top: 20px;
   border-top: 1px solid var(--line);
+}
+.activity-laps.compact {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.compact > .lap-heading {
+  margin-bottom: 0;
 }
 .lap-heading,
 .lap-actions {

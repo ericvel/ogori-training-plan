@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import test from 'node:test'
 import type { Activity, Session } from '../shared/model.ts'
 import { estimatePaces } from '../src/lib/paceTargets.ts'
-import { workoutSummary } from '../src/lib/workout.ts'
+import { benefitsFromLaps, workoutSummary } from '../src/lib/workout.ts'
 import { fixture } from './fixtures.ts'
 
 const warmup =
@@ -39,6 +39,25 @@ test('continuous tempo has no between-rep recovery', () => {
     workout.steps.map((step) => step.label),
     ['Warm-up', 'Cool-down'],
   )
+})
+
+test('lap shortcuts cover structured and pace workouts without labeling ordinary easy runs', () => {
+  for (const title of [
+    '20 min tempo',
+    '6 × 1 km',
+    'Hill repeats',
+    '8 km at HM effort',
+    'Progression run',
+    '10 km benchmark',
+    'Easy + strides',
+    'Fartlek intervals',
+  ]) {
+    assert.equal(benefitsFromLaps(session(title)), true, title)
+  }
+  for (const title of ['9 km easy', 'Long run', 'Easy, no strides', 'Recovery without strides']) {
+    assert.equal(benefitsFromLaps(session(title, [warmup, tempo])), false, title)
+  }
+  assert.equal(benefitsFromLaps({ ...session('Ogori Half Marathon'), kind: 'Race' }), true)
 })
 
 test('custom coaching and cautions survive; duplicate title and instructions disappear', () => {

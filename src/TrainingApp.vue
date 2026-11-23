@@ -246,8 +246,11 @@ const displayRaw = (value: string) =>
                 :draft="drafts[session.id]"
                 :race-goal="state.plan.goal"
                 :pace-estimates="paceEstimates"
+                :save="mutate"
+                :lap-disabled="disabled || unsaved"
                 @patch="patch"
                 @note="noteChanged"
+                @open-activities="navigate('activities')"
               />
               <p v-if="paceEstimates" class="schedule-note">
                 Pace estimates use {{ paceEstimates.runCount }} sustained runs through

@@ -25,6 +25,19 @@ export interface WorkoutTarget {
   note?: string
 }
 
+// Use the workout title, not shared coaching text that also accompanies easy runs.
+export function benefitsFromLaps(session: Session): boolean {
+  const title = session.title.replace(/\b(?:no|without)\s+strides\b/gi, '')
+  return (
+    session.kind === 'Race' ||
+    /\b(?:tempo|threshold|intervals?|repetitions?|reps?|fartlek|progression|benchmark|time[- ]trial|race[- ]pace|hills?|strides)\b/i.test(
+      title,
+    ) ||
+    /\b(?:hm|half[- ]marathon)\s+(?:pace|effort)\b/i.test(title) ||
+    /\b(?:[2-9]|[1-9]\d+)\s*[×x]\s*\d/i.test(title)
+  )
+}
+
 export function workoutSummary(
   session: Session,
   raceGoal?: string,
