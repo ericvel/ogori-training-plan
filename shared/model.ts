@@ -38,6 +38,76 @@ export interface Activity {
   sessionId: string | null
   linkSource: 'name' | 'manual' | null
   raw: Record<string, string>
+  lapData?: LapData
+}
+export interface ActivityLap {
+  number: number
+  stepType: string | null
+  interval: number | null
+  distanceKm: number
+  durationSeconds: number
+  paceSeconds: number | null
+  averageHr: number | null
+  maxHr: number | null
+}
+export interface LapData {
+  laps: ActivityLap[]
+  totals: { distanceKm: number; durationSeconds: number }
+}
+export function assertLapData(value: unknown): asserts value is LapData {
+  const data = value as LapData | null
+  const nonnegative = (n: unknown): n is number =>
+    typeof n === 'number' && Number.isFinite(n) && n >= 0
+  const nullable = (n: unknown, max = Infinity) => n === null || (nonnegative(n) && n <= max)
+  if (
+    !data ||
+    typeof data !== 'object' ||
+    Object.keys(data).some((key) => !['laps', 'totals'].includes(key)) ||
+    !Array.isArray(data.laps) ||
+    !data.laps.length ||
+    data.laps.length > 10000 ||
+    !data.totals ||
+    Object.keys(data.totals).some((key) => !['distanceKm', 'durationSeconds'].includes(key)) ||
+    !nonnegative(data.totals.distanceKm) ||
+    data.totals.distanceKm > 2000 ||
+    !nonnegative(data.totals.durationSeconds)
+  )
+    throw new Error('Invalid lap data.')
+  const numbers = new Set<number>()
+  for (const lap of data.laps) {
+    if (
+      !lap ||
+      Object.keys(lap).some(
+        (key) =>
+          ![
+            'number',
+            'stepType',
+            'interval',
+            'distanceKm',
+            'durationSeconds',
+            'paceSeconds',
+            'averageHr',
+            'maxHr',
+          ].includes(key),
+      ) ||
+      !Number.isSafeInteger(lap.number) ||
+      lap.number < 1 ||
+      numbers.has(lap.number) ||
+      !(
+        lap.stepType === null ||
+        (typeof lap.stepType === 'string' && lap.stepType.length > 0 && lap.stepType.length <= 100)
+      ) ||
+      !(lap.interval === null || (Number.isSafeInteger(lap.interval) && lap.interval > 0)) ||
+      !nonnegative(lap.distanceKm) ||
+      lap.distanceKm > 2000 ||
+      !nonnegative(lap.durationSeconds) ||
+      !nullable(lap.paceSeconds) ||
+      !nullable(lap.averageHr, 300) ||
+      !nullable(lap.maxHr, 300)
+    )
+      throw new Error('Invalid or duplicate lap.')
+    numbers.add(lap.number)
+  }
 }
 export interface TrainingState {
   schemaVersion: 1
@@ -193,5 +263,6 @@ export function assertState(value: unknown): asserts value is TrainingState {
       throw new Error('Invalid or duplicate activity in backup.')
     }
     activityIds.add(activity.id)
+    if (activity.lapData !== undefined) assertLapData(activity.lapData)
   }
 }

@@ -24,6 +24,7 @@ Two core runs and an optional third run per week, with flexible run days and fix
 - Numeric pace estimates beside workout titles, derived privately from imported activity history; effort remains primary. Workout details keep relevant execution steps and custom cautions, with scheduling advice shown once per week.
 - Completed/skipped status, actual run dates, inline single-line autosaved notes.
 - Activity history, weekly running-distance totals, manual session links, automatic name matching, duplicate-safe reimports.
+- Per-run Garmin lap CSV attachment with preview, explicit mismatch confirmation, replacement/removal, and factual work-interval review. Retain core lap time/distance/pace/HR only; laps remain outside pace estimates.
 - Tagged optional runs missing from the original plan appear as extra completed runs in their named week.
 - Kilometres, min/km, Asia/Tokyo; CSV timestamps have no offset.
 - Portable backup of plan, progress, notes, activities, and links.

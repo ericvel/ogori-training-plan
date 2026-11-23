@@ -5,6 +5,7 @@ import { dateLabel, duration, km, pace } from './lib/format.ts'
 import { useTraining } from './lib/useTraining.ts'
 import AppIcon from './components/AppIcon.vue'
 import SessionCard from './components/SessionCard.vue'
+import ActivityLaps from './components/ActivityLaps.vue'
 import { estimatePaces } from './lib/paceTargets.ts'
 const {
   view,
@@ -518,6 +519,12 @@ const displayRaw = (value: string) =>
                     Matched from Garmin activity name
                   </p>
                 </div>
+                <ActivityLaps
+                  v-if="activity.type.toLowerCase() === 'running'"
+                  :activity="activity"
+                  :disabled="disabled || unsaved"
+                  :save="mutate"
+                />
                 <dl class="metrics-grid">
                   <div v-for="(value, key) in activity.raw" :key="key">
                     <dt>{{ key }}</dt>
@@ -555,6 +562,11 @@ const displayRaw = (value: string) =>
             <p>
               Reimporting refreshes existing records without duplicating runs. Activities missing
               from a later export remain in your history.
+            </p>
+            <p>
+              For lap splits, open a run in Activities and choose “Import lap CSV”. Both ordinary
+              lap lists and structured workout exports are supported. Imported laps are included in
+              backups.
             </p>
             <button class="button" :disabled="disabled" @click="fileInput?.click()">
               <AppIcon name="upload" :size="17" />Choose Garmin CSV

@@ -7,7 +7,7 @@ import { csv, fixture, header, row } from './fixtures.ts'
 
 test('Garmin quoting, BOM, multiline titles, decimal lap time, and escaped elevations', () => {
   const activities = parseGarmin(
-    `\uFEFF${header}\r\n${row.replace('week1coreA', '"Easy, \"\"steady\"\"\nrun"')}\r\n`,
+    `\uFEFF${header}\r\n${row.replace('week1coreA', '"Easy, ""steady""\nrun"')}\r\n`,
   )
   assert.equal(activities[0]?.title, 'Easy, "steady"\nrun')
   assert.equal(activities[0]?.raw.Steps, '5,000')

@@ -55,7 +55,7 @@ These training-run proxies are provisional, not validated race predictions. Effo
 
 ### Import format
 
-Use the activity-overview export, with headers `Activity Type`, `Date`, `Title`, `Distance`, and `Time`. Other columns are retained; order is irrelevant. UTF-8, BOM, comma delimiters, quoted commas/newlines, doubled quotes, CRLF/LF, fractional lap durations, thousands separators, `--` missing metrics, and apostrophe-prefixed negative elevation are handled. Individual lap/interval exports lack activity identity and are rejected.
+Use the activity-overview export, with headers `Activity Type`, `Date`, `Title`, `Distance`, and `Time`. Other columns are retained; order is irrelevant. UTF-8, BOM, comma delimiters, quoted commas/newlines, doubled quotes, CRLF/LF, fractional durations, thousands separators, `--` missing metrics, and apostrophe-prefixed negative elevation are handled. Individual lap/interval exports are attached separately from a run's expanded details.
 
 - Dates: `YYYY-MM-DD HH:MM:SS`, interpreted in Asia/Tokyo.
 - Distance: kilometres. Durations: `HH:MM:SS`; pace: `M:SS` per kilometre.
@@ -67,6 +67,18 @@ Use the activity-overview export, with headers `Activity Type`, `Date`, `Title`,
 - Manual links/unlinks survive subsequent exports. Removing a link or renaming a run does not erase previously recorded completion; correct status explicitly if needed.
 - Imports merge; absence from a later file never deletes history. Preview shows new/existing/linked/unlinked counts before confirmation.
 - Files up to 2 MB and 10,000 rows are parsed. Stored state is capped at 1.8 MB, below D1's per-value limit. Raw exported metrics are preserved in backups.
+
+### Individual activity laps
+
+Open a running activity in **Activities → Import lap CSV**. Choose an individual Garmin activity CSV, review its laps and totals beside the selected activity, then save. These files have no internal activity identity; attachment is explicit. English headers and metric exports (km, min/km, bpm) are supported.
+
+- Ordinary exports use `Laps`; structured workouts use `Lap`, `Interval`, and `Step Type`. Both require `Time` and `Distance`. Column order is irrelevant. Summary and grouped range rows are excluded from the lap table; group labels are retained on their individual laps.
+- Only lap/workout identifiers, labels, duration, distance, exported average pace, average HR, and maximum HR are retained. Extra columns are discarded. Missing optional pace/HR values display “—”. Fractional seconds are preserved; pace is never recalculated from rounded lap distance.
+- Numbered `Run` intervals appear in a compact work comparison and are emphasized in the complete lap table. Unlabeled runs show ordinary splits, without inferred work labels or automatic grades.
+- Preview compares the CSV summary (or individual-lap sums when no summary exists) with the selected activity. A difference greater than the larger of 0.10 km or 1% of activity distance, or the larger of 5 seconds or 1% of activity duration, requires explicit mismatch confirmation. Normal export rounding is tolerated.
+- A confirmed reimport replaces the entire lap dataset. Identical normalized data makes no change; **Remove laps** requires confirmation. Invalid files are rejected as a whole.
+- Overview reimports preserve attached laps. Backups include them; older backups without laps remain valid. Laps do not change activity totals, session progress, prescribed training, or pace estimates.
+- The existing CSV and stored-state size limits also apply to lap imports. Original lap CSVs and their extra metrics are not stored.
 
 ## Cloudflare production setup
 

@@ -69,7 +69,7 @@ export function parseGarmin(text: string): Activity[] {
   const required = ['Activity Type', 'Date', 'Title', 'Distance', 'Time']
   if (required.some((h) => !headers.includes(h))) {
     throw new Error(
-      'Choose Garmin’s activity-overview CSV. Required columns: Activity Type, Date, Title, Distance, Time.',
+      'Choose Garmin’s activity-overview CSV. Required columns: Activity Type, Date, Title, Distance, Time. For lap exports, open a running activity and choose Import lap CSV.',
     )
   }
   if (new Set(headers).size !== headers.length) throw new Error('CSV has duplicate column names.')

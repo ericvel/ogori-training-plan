@@ -7,6 +7,12 @@ export function duration(value: number) {
     : `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, '0')}`
 }
 export const pace = (value: number | null) => (value === null ? '—' : duration(value))
+export function lapDuration(value: number) {
+  const fraction = value
+    .toLocaleString('en-US', { useGrouping: false, maximumFractionDigits: 20 })
+    .split('.')[1]
+  return `${duration(Math.floor(value))}${fraction ? `.${fraction}` : ''}`
+}
 export const dateLabel = (
   value: string,
   options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short' },

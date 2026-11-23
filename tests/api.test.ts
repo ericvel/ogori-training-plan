@@ -4,7 +4,7 @@ import { DatabaseSync } from 'node:sqlite'
 import { readFileSync } from 'node:fs'
 import { generateKeyPair, exportJWK, SignJWT } from 'jose'
 import { onRequest } from '../functions/api/[[path]].ts'
-import { fixture } from './fixtures.ts'
+import { csv, fixture } from './fixtures.ts'
 
 function database() {
   const sqlite = new DatabaseSync(':memory:')
@@ -131,4 +131,49 @@ test('simultaneous device writes accept one revision and return the winner to th
   const state = await (await call(new Request('http://localhost/api/state'), env)).json()
   assert.equal(state.revision, 1)
   assert.ok(['One', 'Two'].includes(state.state.progress['w1-a'].note))
+})
+
+test('lap imports validate mismatch confirmation and persist through the state API', async () => {
+  const env = localEnv()
+  const post = (revision: number, command: unknown) =>
+    call(
+      new Request('http://localhost/api/state', {
+        method: 'POST',
+        headers: { Origin: 'http://localhost', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ revision, command }),
+      }),
+      env,
+    )
+  const overview = await (await post(0, { type: 'csv.import', csv })).json()
+  const id = overview.state.activities.find(
+    (activity: { title: string }) => activity.title === 'week1coreA',
+  ).id
+  const laps =
+    'Laps,Time,Distance,Avg Pace,Avg HR,Max HR,Calories\n1,35:00.2,5.25,6:40,130,145,500\nSummary,35:00,5.25,6:40,130,145,500'
+  const command = {
+    type: 'activity.laps.import',
+    id,
+    csv: laps.replaceAll('5.25', '8.00'),
+    acceptMismatch: false,
+  }
+  assert.equal((await post(1, command)).status, 400)
+  const saved = await post(1, { ...command, csv: laps })
+  assert.equal(saved.status, 200)
+  const body = await saved.json()
+  assert.equal(body.revision, 2)
+  const data = body.state.activities.find((activity: { id: string }) => activity.id === id).lapData
+  assert.equal(data.laps[0].durationSeconds, 2100.2)
+  assert.equal(data.laps[0].calories, undefined)
+  assert.equal((await post(1, { ...command, csv: laps })).status, 409)
+  const refreshed = await (await post(2, { type: 'csv.import', csv })).json()
+  assert.deepEqual(
+    refreshed.state.activities.find((activity: { id: string }) => activity.id === id).lapData,
+    data,
+  )
+  assert.equal((await post(3, { type: 'activity.laps.remove', id })).status, 200)
+  const latest = await (await call(new Request('http://localhost/api/state'), env)).json()
+  assert.equal(
+    latest.state.activities.find((activity: { id: string }) => activity.id === id).lapData,
+    undefined,
+  )
 })

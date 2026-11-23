@@ -1,11 +1,14 @@
 import { assertState, blankProgress, sessionsOf, validDate } from './model.ts'
 import type { Activity, Progress, TrainingState } from './model.ts'
 import { parseGarmin } from './csv.ts'
+import { lapMismatch, parseGarminLaps, sameLapData } from './laps.ts'
 
 export type Command =
   | { type: 'session.patch'; id: string; patch: Partial<Progress> }
   | { type: 'activity.link'; id: string; sessionId: string | null }
   | { type: 'csv.import'; csv: string }
+  | { type: 'activity.laps.import'; id: string; csv: string; acceptMismatch: boolean }
+  | { type: 'activity.laps.remove'; id: string }
   | { type: 'backup.restore'; state: TrainingState }
 export interface ImportSummary {
   added: number
@@ -77,6 +80,7 @@ export function importActivities(
       )
     }
     const target = nameTarget(state, activity)
+    if (previous?.lapData) activity.lapData = previous.lapData
     if (previous?.linkSource === 'manual') {
       activity.sessionId = previous.sessionId
       activity.linkSource = 'manual'
@@ -142,6 +146,22 @@ export function applyCommand(current: TrainingState, command: Command): Training
     // A manual unlink must also survive future imports.
     activity.linkSource = 'manual'
     completeLinked(state, activity)
+  } else if (command.type === 'activity.laps.import' || command.type === 'activity.laps.remove') {
+    const activity = state.activities.find((a) => a.id === command.id)
+    if (!activity) throw new Error('Activity not found.')
+    if (activity.type.toLowerCase() !== 'running')
+      throw new Error('Lap imports are supported for running activities.')
+    if (command.type === 'activity.laps.remove') delete activity.lapData
+    else {
+      if (typeof command.csv !== 'string') throw new Error('Choose an individual activity CSV.')
+      const data = parseGarminLaps(command.csv)
+      if (sameLapData(activity.lapData, data)) return state
+      if (lapMismatch(activity, data) && command.acceptMismatch !== true)
+        throw new Error(
+          'Lap CSV totals differ from this activity. Review and confirm the mismatch before importing.',
+        )
+      activity.lapData = data
+    }
   } else throw new Error('Unknown update type.')
   assertState(state)
   return state
