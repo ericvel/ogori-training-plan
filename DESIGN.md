@@ -262,6 +262,8 @@ A (26px) visible circle has an expanded transparent hit area via a (9px) inset a
 
 Native details/summary reveals workout instructions, date input, and linked activity without navigation. Summaries have a minimum height of (47px). Opening rotates the SVG chevron (180deg) over (180ms); content is not animated. The interface also provides a keyboard skip-to-content link.
 
+Workout titles pair with a compact cobalt pace range, a muted “Est. pace” label, and the existing effort cue. Title and target share a wrapping row, keeping both visible on phones without opening details. Estimated ranges use tabular numerals; the source run count and latest date appear once below the week's sessions. Expanded instructions use short Warm-up, Recovery, and Cool-down rows where applicable, followed by any custom coaching and cautions. General scheduling guidance appears once below the sessions.
+
 ### Feedback
 
 Errors and success confirmations use compact bordered, tinted message blocks with text and explicit actions; error content uses `role="alert"`, success uses `role="status"`. Note drafts stay visible on save failure and retry is offered. Loading uses static slate skeletons with a status label. Empty states use a restrained SVG icon, heading, explanation, and a useful action when available.

@@ -45,6 +45,16 @@ Tests use synthetic data and in-memory SQLite. They cover Garmin parsing, reimpo
 
 ## Garmin CSV contract
 
+### Displayed pace estimates
+
+Workout cards show estimated numeric ranges beside their titles, with the original effort cue. Computation stays in the browser using authenticated activity history; no personal targets are embedded in static assets or written back into the prescribed plan. Ranges update after imports or link changes.
+
+Estimates use the eight weeks ending on the latest qualifying running activity, requiring at least three sustained runs of at least 3 km and 20 minutes. Whole-workout averages from tempo, repetition, interval, and stride sessions are excluded. Easy ranges span recorded, linked easy runs (at least three). Faster ranges use the median of the three fastest distance-adjusted sustained performances, with Riegel's exponent 1.07 for 10 km, approximately hour-long tempo effort, and half-marathon effort; bounds allow 10 seconds/km and round outward to five seconds. The allowance is a heuristic, not a confidence interval. Elapsed duration/distance avoids treating a faster moving pace as sustained performance.
+
+These training-run proxies are provisional, not validated race predictions. Effort takes priority, easy running has no minimum pace, and the aspirational race goal remains separate. Insufficient history falls back to existing effort guidance. A recent race/time trial is the stronger reference ([V.O2 guidance](https://support.vdoto2.com/2022/03/adjusting-your-training-paces-on-v-o2/)); distance scaling follows the [Riegel model described by Vickers and Vertosick](https://doi.org/10.1186/s13102-016-0052-y). This implementation does not estimate fitness from heart rate or infer work-rep paces from mixed workouts.
+
+### Import format
+
 Use the activity-overview export, with headers `Activity Type`, `Date`, `Title`, `Distance`, and `Time`. Other columns are retained; order is irrelevant. UTF-8, BOM, comma delimiters, quoted commas/newlines, doubled quotes, CRLF/LF, fractional lap durations, thousands separators, `--` missing metrics, and apostrophe-prefixed negative elevation are handled. Individual lap/interval exports lack activity identity and are rejected.
 
 - Dates: `YYYY-MM-DD HH:MM:SS`, interpreted in Asia/Tokyo.

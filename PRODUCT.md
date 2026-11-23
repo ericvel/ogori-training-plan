@@ -21,13 +21,14 @@ Two core runs and an optional third run per week, with flexible run days and fix
 ## Capabilities and Constraints
 
 - Current-week home, race countdown, full plan, expandable workout details.
+- Numeric pace estimates beside workout titles, derived privately from imported activity history; effort remains primary. Workout details keep relevant execution steps and custom cautions, with scheduling advice shown once per week.
 - Completed/skipped status, actual run dates, inline single-line autosaved notes.
 - Activity history, weekly running-distance totals, manual session links, automatic name matching, duplicate-safe reimports.
 - Tagged optional runs missing from the original plan appear as extra completed runs in their named week.
 - Kilometres, min/km, Asia/Tokyo; CSV timestamps have no offset.
 - Portable backup of plan, progress, notes, activities, and links.
 - Existing Vue project, Cloudflare Pages, Functions, D1, and Cloudflare account login through Access; target free tiers. Main-branch updates auto-deploy through existing GitHub integration.
-- No offline queue, multi-user features, or in-app coaching.
+- No offline queue or multi-user features. Coaching and plan revisions stay in chat; displayed pace estimates update with imported history.
 
 ## Brand Commitments
 

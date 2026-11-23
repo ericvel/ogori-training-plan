@@ -501,9 +501,39 @@ svg {
   color: #66748a;
   min-height: 26px;
 }
-.session-copy h3 {
+.session-title-row {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 20px;
   margin-top: 4px;
+}
+.session-title-row h3 {
+  flex: 1 1 180px;
   overflow-wrap: anywhere;
+}
+.session-target {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 2px 6px;
+  max-width: 100%;
+  color: var(--blue);
+  font-size: 13px;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+.session-target strong {
+  font-weight: 600;
+}
+.target-label,
+.target-note {
+  color: var(--muted);
+  font-size: 11px;
+}
+.target-note {
+  flex-basis: 100%;
 }
 .status-label {
   color: var(--green);
@@ -595,6 +625,22 @@ details[open] > summary > svg {
 .workout-inner li + li {
   margin-top: 8px;
 }
+.workout-steps {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 18px;
+}
+.workout-steps > div {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: 12px;
+}
+.workout-steps dt {
+  color: var(--muted);
+}
+.workout-steps dd {
+  margin: 0;
+}
 .date-field {
   display: flex;
   align-items: center;
@@ -635,6 +681,12 @@ details[open] > summary > svg {
   color: var(--muted);
   padding: 2px 8px;
   max-width: 65ch;
+}
+.pace-explanation {
+  margin: 16px 0;
+  max-width: 75ch;
+  font-size: 13px;
+  color: var(--muted);
 }
 .week-insights {
   display: grid;

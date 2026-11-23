@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { addDays, runLabel, weekDistance } from '../shared/model.ts'
 import { dateLabel, duration, km, pace } from './lib/format.ts'
 import { useTraining } from './lib/useTraining.ts'
 import AppIcon from './components/AppIcon.vue'
 import SessionCard from './components/SessionCard.vue'
+import { estimatePaces } from './lib/paceTargets.ts'
 const {
   view,
   snapshot,
@@ -51,6 +53,9 @@ const {
   chooseBackup,
   restore,
 } = useTraining()
+const paceEstimates = computed(
+  () => state.value && estimatePaces(state.value.plan, state.value.activities),
+)
 const navigation = [
   { id: 'week', label: 'This week', icon: 'week' },
   { id: 'plan', label: 'Training plan', icon: 'plan' },
@@ -238,11 +243,24 @@ const displayRaw = (value: string) =>
                 :busy="disabled"
                 :unsaved="Object.hasOwn(drafts, session.id)"
                 :draft="drafts[session.id]"
+                :race-goal="state.plan.goal"
+                :pace-estimates="paceEstimates"
                 @patch="patch"
                 @note="noteChanged"
               />
+              <p v-if="paceEstimates" class="schedule-note">
+                Pace estimates use {{ paceEstimates.runCount }} sustained runs through
+                {{
+                  dateLabel(paceEstimates.latestDate, {
+                    day: 'numeric',
+                    month: 'short',
+                    year: 'numeric',
+                  })
+                }}. Follow effort first; slower is fine.
+              </p>
               <p class="schedule-note">
-                Run on the days that work for you. Keep a non-running day between sessions.
+                Keep a non-running day between sessions. Don’t make up skipped runs or add optional
+                mileage to core runs.
               </p>
             </section>
             <aside class="week-insights">
@@ -300,6 +318,12 @@ const displayRaw = (value: string) =>
           </div>
           <details class="guidance">
             <summary>How to use your plan<AppIcon name="down" :size="17" /></summary>
+            <p v-if="paceEstimates" class="pace-explanation">
+              Easy ranges reflect recorded easy runs. Faster ranges estimate current fitness from
+              sustained runs, excluding interval and stride workouts. These are starting estimates,
+              not tested race paces; a recent race or time trial gives a better reference. They
+              update when activity history changes. Your race goal stays separate.
+            </p>
             <ul>
               <li v-for="line in state.plan.guidance" :key="line">{{ line }}</li>
             </ul>

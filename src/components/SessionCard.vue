@@ -3,6 +3,8 @@ import { computed, ref, watch } from 'vue'
 import type { Activity, Progress, Session } from '../../shared/model.ts'
 import { blankProgress, runLabel, tokyoToday } from '../../shared/model.ts'
 import { dateLabel, duration, km, pace } from '../lib/format.ts'
+import { workoutSummary } from '../lib/workout.ts'
+import type { PaceEstimates } from '../lib/paceTargets.ts'
 import AppIcon from './AppIcon.vue'
 const props = defineProps<{
   session: Session
@@ -11,12 +13,15 @@ const props = defineProps<{
   busy: boolean
   unsaved?: boolean
   draft?: string
+  raceGoal?: string
+  paceEstimates?: PaceEstimates | null
 }>()
 const emit = defineEmits<{
   patch: [id: string, patch: Partial<Progress>]
   note: [id: string, note: string]
 }>()
 const current = computed(() => props.progress ?? blankProgress())
+const workout = computed(() => workoutSummary(props.session, props.raceGoal, props.paceEstimates))
 const note = ref(props.draft ?? current.value.note)
 const focused = ref(false)
 watch(
@@ -61,7 +66,14 @@ function complete() {
           }}<span v-if="current.status === 'completed'" class="status-label">Completed</span
           ><span v-else-if="current.status === 'skipped'" class="status-label">Skipped</span>
         </div>
-        <h3>{{ session.title }}</h3>
+        <div class="session-title-row">
+          <h3>{{ session.title }}</h3>
+          <div v-if="workout.target" class="session-target">
+            <span class="target-label">{{ workout.target.label }}</span>
+            <strong>{{ workout.target.value }}</strong>
+            <span v-if="workout.target.note" class="target-note">{{ workout.target.note }}</span>
+          </div>
+        </div>
         <p v-if="current.status === 'completed'" class="session-date">
           {{
             current.actualDate
@@ -107,12 +119,17 @@ function complete() {
           ><AppIcon name="down" :size="16" />
         </summary>
         <div class="workout-inner">
-          <ul v-if="session.instructions?.length">
-            <li v-for="instruction in session.instructions" :key="instruction">
+          <dl v-if="workout.steps.length" class="workout-steps">
+            <div v-for="step in workout.steps" :key="step.label">
+              <dt>{{ step.label }}</dt>
+              <dd>{{ step.value }}</dd>
+            </div>
+          </dl>
+          <ul v-if="workout.details.length">
+            <li v-for="instruction in workout.details" :key="instruction">
               {{ instruction }}
             </li>
           </ul>
-          <p v-else>{{ session.title }}</p>
           <label class="date-field"
             >Actual run date<input
               type="date"
