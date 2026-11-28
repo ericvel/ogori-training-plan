@@ -2,7 +2,7 @@
 import type { ActivityLap } from '../../shared/model.ts'
 import { isWorkLap } from '../../shared/laps.ts'
 import { lapDuration, km } from '../lib/format.ts'
-defineProps<{ laps: ActivityLap[]; caption: string }>()
+defineProps<{ laps: ActivityLap[]; caption: string; highlightWork?: boolean }>()
 </script>
 
 <template>
@@ -24,11 +24,17 @@ defineProps<{ laps: ActivityLap[]; caption: string }>()
         </tr>
       </thead>
       <tbody>
-        <tr v-for="lap in laps" :key="lap.number" :class="{ 'work-lap': isWorkLap(lap) }">
+        <tr
+          v-for="lap in laps"
+          :key="lap.number"
+          :class="{ 'work-lap': highlightWork && isWorkLap(lap) }"
+        >
           <th scope="row">
             {{ lap.number
             }}<span v-if="lap.stepType" class="lap-step">{{
-              isWorkLap(lap) ? `Work ${lap.interval}` : lap.stepType
+              highlightWork && isWorkLap(lap) && lap.interval !== null
+                ? `Work ${lap.interval}`
+                : lap.stepType
             }}</span>
           </th>
           <td>{{ lapDuration(lap.durationSeconds) }}</td>

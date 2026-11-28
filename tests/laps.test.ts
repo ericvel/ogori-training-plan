@@ -145,10 +145,6 @@ test('imports replace, dedupe and remove only laps; overview refresh and backups
     lapData: parseGarminLaps(ordinaryLaps),
   })
   assert.deepEqual(
-    estimatePaces(saved.plan, saved.activities),
-    estimatePaces(state.plan, state.activities),
-  )
-  assert.deepEqual(
     applyCommand(saved, {
       type: 'activity.laps.import',
       id,
@@ -180,6 +176,93 @@ test('imports replace, dedupe and remove only laps; overview refresh and backups
   assert.equal(removed.activities[0]?.distanceKm, 5.25)
   assert.deepEqual(removed.progress, state.progress)
 })
+
+test('saving, replacing and removing sustained work laps updates faster pace ranges', () => {
+  const state = initial()
+  const run = state.activities[0]!
+  const tempo = { ...run, sessionId: 'w3-a' }
+  state.activities = [
+    ...[1920, 2400, 2520].map((durationSeconds, index) => ({
+      ...run,
+      id: `steady-${index}`,
+      distanceKm: 6,
+      durationSeconds,
+    })),
+    { ...tempo, distanceKm: 6, durationSeconds: 2400 },
+  ]
+  const csv = `Interval,Step Type,Lap,Time,Distance,Avg Pace
+,Warm Up,1,10:00,1.25,8:00
+1,Run,2,6:00,1.20,4:30
+1,Run,3,1:30,0.30,4:30
+,Recovery,4,2:00,0.25,8:00
+2,Run,5,9:00,1.50,5:30
+3,Run,6,0:20,0.10,3:20
+,Cool Down,7,11:10,1.40,8:00`
+  const estimate = (state: ReturnType<typeof initial>) =>
+    estimatePaces(state.plan, state.activities)
+  const before = estimate(state)
+  const importCommand = {
+    type: 'activity.laps.import' as const,
+    id: tempo.id,
+    csv,
+    acceptMismatch: false,
+  }
+  const saved = applyCommand(state, importCommand)
+  const after = estimate(saved)
+  assert.equal(after?.runCount, 4)
+  assert.equal(after?.lapRunCount, 1)
+  assert.equal(after?.ranges.easy, before?.ranges.easy)
+  assert.equal(after?.ranges.tenKm, '5:45–6:10')
+  assert.notEqual(after?.ranges.tempo, before?.ranges.tempo)
+  assert.notEqual(after?.ranges.half, before?.ranges.half)
+
+  const groupedCsv = `Interval,Step Type,Lap,Time,Distance,Avg Pace
+,Warm Up,1,10:00,1.25,8:00
+1,Run,2 - 3,7:30,1.50,5:00
+,,2,6:00,1.20,5:00
+,,3,1:30,0.30,5:00
+,Rest,4,2:00,0.25,8:00
+2,Run,5 - 6,9:00,1.50,6:00
+,,5,8:10,1.35,6:03
+,,6,0:50,0.15,5:33
+,Cool Down,7,11:28,1.50,7:39
+3,Run,8,0:02,0,14:16`
+  const grouped = applyCommand(saved, { ...importCommand, csv: groupedCsv })
+  const work = grouped.activities.at(-1)?.lapData?.laps.filter(isWorkLap)
+  assert.deepEqual(
+    work?.map((lap) => [lap.number, lap.interval]),
+    [
+      [2, null],
+      [3, null],
+      [5, null],
+      [6, null],
+    ],
+  )
+  assert.deepEqual(estimate(grouped), after)
+
+  const flatCsv = csv
+    .split('\n')
+    .map((row) => row.split(',').slice(2).join(','))
+    .join('\n')
+  const replaced = applyCommand(saved, { ...importCommand, csv: flatCsv })
+  assert.deepEqual(estimate(replaced), before)
+  const removed = applyCommand(saved, { type: 'activity.laps.remove', id: tempo.id })
+  assert.deepEqual(estimate(removed), before)
+
+  // A file with several intervals still represents one training run.
+  assert.equal(estimatePaces(saved.plan, saved.activities.slice(-2)), null)
+  assert.equal(estimatePaces(saved.plan, saved.activities.slice(-3))?.runCount, 3)
+
+  const shorter = applyCommand(
+    { ...state, activities: [...state.activities.slice(0, 3), tempo] },
+    {
+      ...importCommand,
+      csv: workoutLaps,
+    },
+  )
+  assert.equal(estimate(shorter)?.lapRunCount, 1)
+})
+
 test('mismatched files require explicit confirmation on server; wrong targets are rejected', () => {
   const state = initial(),
     id = state.activities[0]!.id

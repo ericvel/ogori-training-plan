@@ -2,7 +2,13 @@
 import { computed, ref, watch } from 'vue'
 import type { Activity, LapData } from '../../shared/model.ts'
 import type { Command } from '../../shared/commands.ts'
-import { isWorkLap, lapMismatch, parseGarminLaps, sameLapData } from '../../shared/laps.ts'
+import {
+  hasWorkoutSteps,
+  isWorkLap,
+  lapMismatch,
+  parseGarminLaps,
+  sameLapData,
+} from '../../shared/laps.ts'
 import { dateLabel, duration, km, lapDuration } from '../lib/format.ts'
 import LapTable from './LapTable.vue'
 import AppIcon from './AppIcon.vue'
@@ -28,7 +34,10 @@ const identical = computed(
   () => !!preview.value && sameLapData(props.activity.lapData, preview.value.data),
 )
 const displayed = computed(() => preview.value?.data ?? props.activity.lapData)
-const work = computed(() => displayed.value?.laps.filter(isWorkLap) ?? [])
+const work = computed(() => {
+  const laps = displayed.value?.laps
+  return laps && hasWorkoutSteps(laps) ? laps.filter(isWorkLap) : []
+})
 watch([() => props.activity.distanceKm, () => props.activity.durationSeconds], () => {
   acceptMismatch.value = false
 })
@@ -210,18 +219,15 @@ async function remove() {
       </template>
     </div>
     <template v-if="displayed && (!compact || preview || reviewing)">
-      <LapTable v-if="work.length" :laps="work" caption="Work intervals" />
+      <LapTable v-if="work.length" :laps="work" caption="Work splits" highlight-work />
       <LapTable
         :laps="displayed.laps"
         :caption="preview ? 'Lap import preview' : 'Recorded laps'"
+        :highlight-work="work.length > 0"
       />
-      <p class="small muted lap-note">
-        Exported pace ·
-        {{
-          preview
-            ? 'Preview only. Save to attach these laps.'
-            : 'Laps stay separate from activity totals and pace estimates.'
-        }}
+      <p v-if="preview || work.length" class="small muted lap-note">
+        <template v-if="preview">Preview only. Save to attach these laps.</template>
+        <template v-else>Sustained work intervals can inform upcoming pace estimates.</template>
       </p>
     </template>
     <p v-else-if="!displayed && !compact" class="small muted">

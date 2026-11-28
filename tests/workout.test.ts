@@ -151,6 +151,7 @@ test('numeric estimates stay visible alongside effort and preserve the condition
   const estimates = {
     ranges: { easy: '6:20–7:20', tempo: '5:30–5:55', half: '5:45–6:10' },
     runCount: 8,
+    lapRunCount: 0,
     latestDate: '2026-10-23',
   }
   const workout = workoutSummary(session('3 × 5 min tempo', [tempo]), undefined, estimates)

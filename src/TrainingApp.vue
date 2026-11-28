@@ -253,14 +253,18 @@ const displayRaw = (value: string) =>
                 @open-activities="navigate('activities')"
               />
               <p v-if="paceEstimates" class="schedule-note">
-                Pace estimates use {{ paceEstimates.runCount }} sustained runs through
+                Pace estimates draw on {{ paceEstimates.runCount }} recent runs through
                 {{
                   dateLabel(paceEstimates.latestDate, {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric',
                   })
-                }}. Follow effort first; slower is fine.
+                }}.
+                <template v-if="paceEstimates.lapRunCount">
+                  {{ paceEstimates.lapRunCount }} included sustained work intervals from lap CSVs.
+                </template>
+                Follow effort first. Slower is fine.
               </p>
               <p class="schedule-note">
                 Keep a non-running day between sessions. Don’t make up skipped runs or add optional
@@ -323,10 +327,10 @@ const displayRaw = (value: string) =>
           <details class="guidance">
             <summary>How to use your plan<AppIcon name="down" :size="17" /></summary>
             <p v-if="paceEstimates" class="pace-explanation">
-              Easy ranges reflect recorded easy runs. Faster ranges estimate current fitness from
-              sustained runs, excluding interval and stride workouts. These are starting estimates,
-              not tested race paces; a recent race or time trial gives a better reference. They
-              update when activity history changes. Your race goal stays separate.
+              Easy ranges reflect recorded easy runs. Faster ranges draw on sustained runs and
+              labeled work intervals from imported laps. Use them as a starting point and follow the
+              workout’s effort cue. Estimates update when you change your activity history or saved
+              laps.
             </p>
             <ul>
               <li v-for="line in state.plan.guidance" :key="line">{{ line }}</li>

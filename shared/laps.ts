@@ -127,5 +127,10 @@ export function sameLapData(a: LapData | undefined, b: LapData): boolean {
   )
 }
 
+const isRunStep = (lap: ActivityLap) => lap.stepType?.toLowerCase() === 'run'
+
+export const hasWorkoutSteps = (laps: ActivityLap[]) =>
+  laps.some((lap) => lap.interval !== null || (lap.stepType !== null && !isRunStep(lap)))
+
 export const isWorkLap = (lap: ActivityLap) =>
-  lap.stepType?.toLowerCase() === 'run' && lap.interval !== null
+  isRunStep(lap) && lap.distanceKm > 0 && lap.durationSeconds > 0
